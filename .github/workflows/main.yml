@@ -29,6 +29,9 @@ jobs:
       - name: Run a one-line script
         run: whoami
         
+      - name: py ver
+        run: python -V
+        
       - name: Show os
         run: uname -r
 
