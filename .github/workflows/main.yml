@@ -29,8 +29,11 @@ jobs:
       - name: Run a one-line script
         run: whoami
         
-      - name: py ver
-        run: python -V
+      - name: Install Safety
+        run: pip install safety
+      
+      - name: Run Safefy
+        run: safety check
         
       - name: Show os
         run: uname -r
