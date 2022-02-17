@@ -1,6 +1,4 @@
-# This is a basic workflow to help you get started with Actions
-
-name: CI
+name: Security-Scans
 
 # Controls when the workflow will run
 on:
@@ -31,7 +29,7 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: report
+          name: OWASP-Dependency-Check-Report
           path: report.html
           
   bandit-scan:
