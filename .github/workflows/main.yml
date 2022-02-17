@@ -1,6 +1,6 @@
 name: Security-Scans
 
-on: [workflow_call,push]
+on: [workflow_call]
 jobs:
   owasp-dependency-scan:
     runs-on: ubuntu-latest
