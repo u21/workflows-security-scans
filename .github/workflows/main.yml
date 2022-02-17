@@ -40,5 +40,5 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: report
-          path: dependency-check/report.html
+          name: report.html
+          path: report.html
