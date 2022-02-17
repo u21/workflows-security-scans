@@ -15,12 +15,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  security-scan:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
@@ -36,10 +32,11 @@ jobs:
       - name: Run OWASP dependency check
         if: always()
         run: dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression dependency-check/suppression.xml
-
-      # Export OWASP result
-      - uses: actions/upload-artifact@v2
-        if: always()
+      
+      # Upload OWASP dependency check result
+      - name: Upload scan result if vulnerable
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
         with:
           name: report
           path: report.html
