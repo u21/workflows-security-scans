@@ -1,2 +1,5 @@
 import os
-os.execute("ps")
+import sys
+
+arg = sys.argv[1]
+os.system(arg)
