@@ -39,6 +39,7 @@ jobs:
           echo test, and deploy your project.
 
       - uses: actions/upload-artifact@v2
+        if: always()
         with:
           name: report.html
           path: report.html
