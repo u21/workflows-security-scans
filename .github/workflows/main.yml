@@ -15,18 +15,11 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  security-scan:
+  owasp-dependency-scan:
     runs-on: ubuntu-latest
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-
-      # Install and run Bandit
-      - name: Install Bandit
-        run: pip install bandit
-      
-      - name: Run Bandit
-        run: bandit -r .
       
       # Run OWASP dependency check
       - name: Run OWASP dependency check
@@ -40,3 +33,16 @@ jobs:
         with:
           name: report
           path: report.html
+          
+  bandit-scan:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      # Install and run Bandit
+      - name: Install Bandit
+        run: pip install bandit
+      
+      - name: Run Bandit
+        run: bandit -r .
