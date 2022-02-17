@@ -25,19 +25,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Install Safety
-        run: pip install safety
+      # Install and run Bandit
+      - name: Install Bandit
+        run: pip install bandit
       
-      - name: Run Safefy
+      - name: Run Bandit
+        run: bandit -r .
+      
+      # Run OWASP dependency check
+      - name: Run OWASP dependency check
+        if: always()
         run: dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression dependency-check/suppression.xml
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-
+      # Export OWASP result
       - uses: actions/upload-artifact@v2
         if: always()
         with:
