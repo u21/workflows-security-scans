@@ -1,6 +1,6 @@
 name: Security-Scans
 
-on: workflow_call
+on: [workflow_call,push]
 jobs:
   owasp-dependency-scan:
     runs-on: ubuntu-latest
@@ -8,8 +8,8 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
         with:
-          name: u21/workflows-security-scans
-          ref: main
+          repository: 'u21/workflows-security-scans'
+          
           
       # Run OWASP dependency check
       - name: Run OWASP dependency check
