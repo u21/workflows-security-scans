@@ -11,6 +11,9 @@ jobs:
           name: u21/workflows-security-scans
           ref: main
       
+      - name: run
+        run: pwd && ls
+      
       # Run OWASP dependency check
       - name: Run OWASP dependency check
         if: always()
