@@ -30,7 +30,7 @@ jobs:
         run: pip install safety
       
       - name: Run Safefy
-        run: dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression suppression.xml
+        run: dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression dependency-check/suppression.xml
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
@@ -41,5 +41,5 @@ jobs:
       - uses: actions/upload-artifact@v2
         if: always()
         with:
-          name: report.html
+          name: report
           path: report.html
