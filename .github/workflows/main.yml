@@ -1,6 +1,14 @@
 name: Security-Scans
 
-on: [workflow_call]
+on: 
+  workflow_call:
+    secrets:
+      GITGUARDIAN:
+        required: true
+        
+env:
+  GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
+  
 jobs:
   gitleaks:
     runs-on: ubuntu-latest
