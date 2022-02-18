@@ -13,9 +13,6 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-          repository: 'u21/workflows-security-scans'
           
       - uses: actions/checkout@v2
       
