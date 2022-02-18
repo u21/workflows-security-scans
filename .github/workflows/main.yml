@@ -17,7 +17,12 @@ jobs:
         with:
           repository: 'u21/workflows-security-scans'
           
-      - name: Run OWASP dependency check
-        run: echo $GITGUARDIAN_API_KEY
+      
+      # Install and run Bandit
+      - name: Install ggshield
+        run: pip install ggshield
+      
+      - name: Run Bandit
+        run: ggshield scan path . --recursive -y
       
     
