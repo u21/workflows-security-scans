@@ -18,6 +18,6 @@ jobs:
           repository: 'u21/workflows-security-scans'
           
       - name: Run OWASP dependency check
-        run: go version
+        run: echo $GITGUARDIAN_API_KEY
       
     
