@@ -1,6 +1,14 @@
 name: Security-Scans
 
-on: [workflow_call,push]
+on: 
+  workflow_call:
+    secrets:
+      GITGUARDIAN:
+        required: true
+        
+env:
+  GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
+        
 jobs:
   owasp-dependency-scan:
     runs-on: ubuntu-latest
@@ -36,3 +44,16 @@ jobs:
       
       - name: Run Bandit
         run: bandit -r .
+        
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      # Install and run ggshield
+      - name: Install ggshield
+        run: pip install ggshield
+        
+      - name: Run ggshield
+        run: ggshield scan path . --recursive -y
+      
