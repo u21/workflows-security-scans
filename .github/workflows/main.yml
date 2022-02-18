@@ -36,3 +36,17 @@ jobs:
       
       - name: Run Bandit
         run: bandit -r .
+        
+        
+        
+  gitleaks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: 'u21/workflows-security-scans'
+          
+      - name: Run OWASP dependency check
+        run: go version
+      
+    
