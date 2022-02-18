@@ -26,8 +26,12 @@ jobs:
       - name: Install ggshield
         run: pip install ggshield
       
-      - name: test
+      - name: ls now
         run: ls
+        
+      - name: ls up
+        run: cd .. && ls
+        
       
       - name: Run ggshield
         run: ggshield scan path . --recursive -y
