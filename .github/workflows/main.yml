@@ -13,16 +13,19 @@ jobs:
   owasp-dependency-scan:
     runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Checkout workflows-security-scans
+        uses: actions/checkout@v2
         with:
-          repository: 'u21/workflows-security-scans'
-          
+          repository: u21/workflows-security-scans
+          path: workflows-security-scans
           
       # Run OWASP dependency check
       - name: Run OWASP dependency check
-        if: always()
-        run: dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression dependency-check/suppression.xml
+        run: workflows-security-scans/dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression workflows-security-scans/dependency-check/suppression.xml
       
       # Upload OWASP dependency check result
       - name: Upload scan result if vulnerable
