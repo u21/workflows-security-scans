@@ -17,6 +17,7 @@ jobs:
         with:
           repository: 'u21/workflows-security-scans'
           
+      - uses: actions/checkout@v2
       
       # Install and run Bandit
       - name: Install ggshield
