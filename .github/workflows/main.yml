@@ -22,7 +22,10 @@ jobs:
       - name: Install ggshield
         run: pip install ggshield
       
-      - name: Run Bandit
+      - name: test
+        run: ls
+      
+      - name: Run ggshield
         run: ggshield scan path . --recursive -y
       
     
