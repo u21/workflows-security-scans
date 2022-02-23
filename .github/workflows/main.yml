@@ -39,14 +39,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Checkout workflows-security-scans
+        uses: actions/checkout@v2
+        with:
+          repository: u21/workflows-security-scans
+          path: workflows-security-scans
 
       # Install and run Bandit
       - name: Install Bandit
         run: pip install bandit
       
       - name: Run Bandit
-        run: bandit -r .
+        run: bandit -r . workflows-security-scans/bandit.yaml
         
   gitguardian:
     runs-on: ubuntu-latest
