@@ -53,7 +53,7 @@ jobs:
         run: pip install bandit
       
       - name: Run Bandit
-        run: bandit -r . workflows-security-scans/bandit.yaml
+        run: bandit -c workflows-security-scans/bandit.yaml -r .
         
   gitguardian:
     runs-on: ubuntu-latest
