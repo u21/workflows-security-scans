@@ -30,10 +30,24 @@
 </suppress>
 <suppress>
    <notes><![CDATA[
+   file name: glob-parent:3.1.0
+   ]]></notes>
+   <sha1>d2dfa8a4d4f37be8bf7ed0fc054d599bbab063bd</sha1>
+   <vulnerabilityName>CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')</vulnerabilityName>
+</suppress>
+<suppress>
+   <notes><![CDATA[
    file name: node-fetch:1.7.3
    ]]></notes>
    <packageUrl regex="true">^pkg:npm/node\-fetch@.*$</packageUrl>
    <vulnerabilityName>1065558</vulnerabilityName>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: node-fetch:1.7.3
+   ]]></notes>
+   <sha1>e27d66d19b21e6df46153a652950bcb27a9ec39c</sha1>
+   <vulnerabilityName>CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')</vulnerabilityName>
 </suppress>
 <suppress>
    <notes><![CDATA[
@@ -48,5 +62,12 @@
    ]]></notes>
    <packageUrl regex="true">^pkg:npm/trim@.*$</packageUrl>
    <vulnerabilityName>1065257</vulnerabilityName>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: trim:0.0.1
+   ]]></notes>
+   <sha1>663abb7e892a41860b20ea93ab3d45f9a7afece7</sha1>
+   <vulnerabilityName>CWE-400: Uncontrolled Resource Consumption ('Resource Exhaustion')</vulnerabilityName>
 </suppress>
 </suppressions>
