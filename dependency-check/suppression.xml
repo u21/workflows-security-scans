@@ -21,4 +21,32 @@
    <packageUrl regex="true">^pkg:maven/com\.h2database/h2@.*$</packageUrl>
    <vulnerabilityName>CWE-94: Improper Control of Generation of Code ('Code Injection')</vulnerabilityName>
 </suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: glob-parent:3.1.0
+   ]]></notes>
+   <packageUrl regex="true">^pkg:npm/glob\-parent@.*$</packageUrl>
+   <vulnerabilityName>1065072</vulnerabilityName>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: node-fetch:1.7.3
+   ]]></notes>
+   <packageUrl regex="true">^pkg:npm/node\-fetch@.*$</packageUrl>
+   <vulnerabilityName>1065558</vulnerabilityName>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: node-fetch:2.6.6
+   ]]></notes>
+   <packageUrl regex="true">^pkg:npm/node\-fetch@.*$</packageUrl>
+   <vulnerabilityName>1064646</vulnerabilityName>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: trim:0.0.1
+   ]]></notes>
+   <packageUrl regex="true">^pkg:npm/trim@.*$</packageUrl>
+   <vulnerabilityName>1065257</vulnerabilityName>
+</suppress>
 </suppressions>
