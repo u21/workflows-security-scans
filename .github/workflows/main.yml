@@ -41,3 +41,33 @@ jobs:
         with:
           name: Bandit-Report-JSON
           path: bandit_report.json
+        
+  gitguardian:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      
+      # Install and run ggshield
+      - name: Install ggshield
+        run: pip install ggshield
+        
+      - name: Run ggshield
+        run: ggshield scan path . --recursive -y
+      
+
+
+  tfsec:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Checkout workflows-security-scans
+        uses: actions/checkout@v2
+        with:
+          repository: u21/workflows-security-scans
+          path: workflows-security-scans
+          
+      # Run tfsec
+      - name: Run tfsec
+        run: workflows-security-scans/tfsec . --force-all-dirs
