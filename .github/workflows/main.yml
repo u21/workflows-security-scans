@@ -54,6 +54,18 @@ jobs:
       
       - name: Run Bandit
         run: bandit -c workflows-security-scans/bandit.yaml -r .
+
+      - name: Generate Bandit report if necessary
+        if: ${{ failure() }}
+        run: bandit -c workflows-security-scans/bandit.yaml -r . -f json -o bandit_report.json
+
+      # Upload bandit result
+      - name: Upload scan result if vulnerable
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Bandit-Report-JSON
+          path: bandit_report.json
         
   gitguardian:
     runs-on: ubuntu-latest
