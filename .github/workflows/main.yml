@@ -107,5 +107,5 @@ jobs:
         if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: Tfsec-Report-Json
+          name: Tfsec-Report-JSON
           path: tfsec_report.json
