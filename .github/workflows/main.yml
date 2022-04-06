@@ -96,3 +96,16 @@ jobs:
       # Run tfsec
       - name: Run tfsec
         run: workflows-security-scans/tfsec . --force-all-dirs
+
+      # Generate report if tfsec fails
+      - name: Generate report if tfsec fails
+        if: ${{ failure() }}
+        run: workflows-security-scans/tfsec . --force-all-dirs --format json --out tfsec_report.json
+
+      # Upload tfsec result
+      - name: Upload scan result if vulnerable
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Tfsec-Report-Json
+          path: tfsec_report.json
