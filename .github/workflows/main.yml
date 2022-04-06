@@ -67,17 +67,17 @@ jobs:
           name: Bandit-Report-JSON
           path: bandit_report.json
         
-  gitguardian:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
+  #gitguardian:
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - uses: actions/checkout@v2
       
       # Install and run ggshield
-      - name: Install ggshield
-        run: pip install ggshield
+  #    - name: Install ggshield
+  #      run: pip install ggshield
         
-      - name: Run ggshield
-        run: ggshield scan path . --recursive -y
+  #    - name: Run ggshield
+  #      run: ggshield scan path . --recursive -y
       
 
 
