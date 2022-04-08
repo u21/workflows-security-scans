@@ -140,4 +140,18 @@
    <packageUrl regex="true">^pkg:maven/com\.fasterxml\.jackson\.core/jackson\-databind@.*$</packageUrl>
    <cve>CVE-2020-36518</cve>
 </suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: Flask-Pydantic:0.8.0
+   ]]></notes>
+   <packageUrl regex="true">^pkg:pypi/flask\-pydantic@.*$</packageUrl>
+   <cve>CVE-2021-29510</cve>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: Flask-Pydantic:0.8.0
+   ]]></notes>
+   <sha1>08752e6c838d6fd907628463456905bdc44fa123</sha1>
+   <cve>CVE-2021-29510</cve>
+</suppress>
 </suppressions>
