@@ -1,7 +1,7 @@
 # Dependency Checker
 
 This repository exists to aide in security scans of Unit21 projects. To use this action configure the following in your
-github workflows. See [Lumos as an example](https://github.com/u21/lumos/blob/master/.github/workflows/security.yml#L5).
+github workflows.
 
 ```yml
 name: Security-Scan
