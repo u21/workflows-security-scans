@@ -1,4 +1,5 @@
 dependency-check-report.html
 dependency-check/.DS_Store
+dependency-check/data
 .cache_ggshield
 test.py
