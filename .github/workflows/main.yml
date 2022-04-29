@@ -53,11 +53,11 @@ jobs:
         run: pip install bandit
       
       - name: Run Bandit
-        run: bandit --exclude ./alembic/versions/ --skip B101,B404 -c workflows-security-scans/bandit.yaml -r .
+        run: bandit --exclude ./alembic/versions/,./tests/ --skip B101,B404 -c workflows-security-scans/bandit.yaml -r .
 
       - name: Generate Bandit report if necessary
         if: ${{ failure() }}
-        run: bandit --exclude ./alembic/versions/ --skip B101,B404 -c workflows-security-scans/bandit.yaml -r . -f json -o bandit_report.json
+        run: bandit --exclude ./alembic/versions/,./tests/ --skip B101,B404 -c workflows-security-scans/bandit.yaml -r . -f json -o bandit_report.json
 
       # Upload bandit result
       - name: Upload scan result if vulnerable
