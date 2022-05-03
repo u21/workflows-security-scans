@@ -8,7 +8,9 @@ on:
         
 env :
   GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
-        
+  VERACODE_API_ID: ${{ secrets.VERACODE_API_ID }}
+  VERACODE_API_KEY: ${{ secrets.VERACODE_API_KEY }}
+
 jobs :
   veracode :
     runs-on : ubuntu-latest
@@ -20,7 +22,7 @@ jobs :
         run : zip -r code.zip .
 
       - name : test secrets
-        run : echo ${{ secrets.VERACODE_API_ID }} | echo ${{ secrets.VERACODE_API_KEY }}
+        run : env
 
       - name : Veracode Upload And Scan
         uses : veracode/veracode-uploadandscan-action@0.2.1
@@ -29,5 +31,5 @@ jobs :
           sandboxname: 'Dev'
           createprofile: false
           filepath: 'code.zip'
-          vid: '${{ secrets.VERACODE_API_ID }}'
-          vkey: '${{ secrets.VERACODE_API_KEY }}'
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
