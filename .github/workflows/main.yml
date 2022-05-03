@@ -19,6 +19,9 @@ jobs :
       - name : zip repo
         run : zip -r code.zip .
 
+      - name : test secrets
+        run : echo ${{ secrets.VERACODE_API_ID }} | echo ${{ secrets.VERACODE_API_KEY }}
+
       - name : Veracode Upload And Scan
         uses : veracode/veracode-uploadandscan-action@0.2.1
         with:
