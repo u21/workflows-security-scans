@@ -23,7 +23,7 @@ jobs :
         uses : veracode/veracode-uploadandscan-action@0.2.1
         with:
           appname: 'Unit21'
-          sandbox: 'Dev'
+          sandboxname: 'Dev'
           createprofile: false
           filepath: 'code.zip'
           vid: '${{ secrets.VERACODE_API_ID }}'
