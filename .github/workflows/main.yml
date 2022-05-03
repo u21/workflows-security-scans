@@ -4,7 +4,7 @@ on:
   workflow_call:
     secrets:
       GITGUARDIAN:
-        required: true
+        required: false
         
 env :
   GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
