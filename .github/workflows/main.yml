@@ -6,20 +6,27 @@ on:
       GITGUARDIAN:
         required: true
         
-env:
+env :
   GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
         
-jobs:
-  veracode:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout
-        uses: actions/checkout@v2
+jobs :
+  veracode :
+    runs-on : ubuntu-latest
+    steps :
+      - name : checkout
+        uses : actions/checkout@v2
       
-      - name: zip repo
-        run: zip -r foo.zip .
-        run: ls
-        run: pwd
+      - name : zip repo
+        run : zip -r foo.zip .
+      
+      - name : test1
+        run : ls
+      
+      - name : test2
+        run : pwd
+      
+      - name : test3
+        run : echo $PATH
 
-      - name: Veracode Upload And Scan
-        uses: veracode/veracode-uploadandscan-action@0.2.1
+      - name : Veracode Upload And Scan
+        uses : veracode/veracode-uploadandscan-action@0.2.1
