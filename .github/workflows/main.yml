@@ -5,6 +5,10 @@ on:
     secrets:
       GITGUARDIAN:
         required: false
+      VERACODE_API_ID:
+        required: false
+      VERACODE_API_KEY:
+        required: false
         
 env :
   GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
