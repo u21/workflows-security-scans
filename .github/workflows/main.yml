@@ -4,10 +4,11 @@ on:
   workflow_call:
     secrets:
       GITGUARDIAN:
+        required: false
+      VERACODE_API_ID:
         required: true
-        
-env:
-  GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
+      VERACODE_API_KEY:
+        required: true
         
 jobs:
   owasp-dependency-scan:
@@ -109,3 +110,29 @@ jobs:
         with:
           name: Tfsec-Report-JSON
           path: tfsec_report.json
+
+  veracode :
+    runs-on : ubuntu-latest
+    steps :
+
+      - name : checkout
+        uses : actions/checkout@v2
+
+      - name: Checkout workflows-security-scans
+        uses: actions/checkout@v2
+        with:
+          repository: u21/workflows-security-scans
+          path: workflows-security-scans
+      
+      - name : zip repo
+        run : zip -r code.zip .
+
+      - name : run veracode
+        run : java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
+
+      - name : export findings
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: Veracode_Results
+          path: results.json
