@@ -19,14 +19,15 @@ jobs :
   veracode :
     runs-on : ubuntu-latest
     steps :
+
+      - name : checkout
+        uses : actions/checkout@v2
+
       - name: Checkout workflows-security-scans
         uses: actions/checkout@v2
         with:
           repository: u21/workflows-security-scans
           path: workflows-security-scans
-      
-      - name : checkout
-        uses : actions/checkout@v2
 
       - name : check file
         run: ls
