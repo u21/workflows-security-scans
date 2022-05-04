@@ -27,6 +27,9 @@ jobs :
       
       - name : checkout
         uses : actions/checkout@v2
+
+      - name : check file
+        run: ls | pwd
       
       - name : zip repo
         run : zip -r code.zip .
