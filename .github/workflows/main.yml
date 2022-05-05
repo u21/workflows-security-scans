@@ -131,7 +131,13 @@ jobs:
           path: workflows-security-scans
 
       - name : run veracode
-        run : java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
+        run : |
+              FILE=veracode_baseline.json
+              if [ -f "$FILE" ]; then
+                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json
+              else 
+                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
+              fi
 
       - name : export findings
         if: ${{ failure() }}
