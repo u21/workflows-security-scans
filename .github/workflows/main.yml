@@ -117,15 +117,15 @@ jobs:
 
       - name : checkout
         uses : actions/checkout@v2
+      
+      - name : zip repo
+        run : zip -r code.zip .
 
       - name: Checkout workflows-security-scans
         uses: actions/checkout@v2
         with:
           repository: u21/workflows-security-scans
           path: workflows-security-scans
-      
-      - name : zip repo
-        run : zip -r code.zip .
 
       - name : run veracode
         run : java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
