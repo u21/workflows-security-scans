@@ -119,8 +119,8 @@ jobs:
         uses : actions/checkout@v2
       
       - name : remove tests folder
-        run : find . -type d -name 'tests' -delete
-        
+        run : find . -type d -name 'tests' -exec rm -r {} +
+
       - name : zip repo
         run : zip -r code.zip .
 
