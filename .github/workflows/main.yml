@@ -23,27 +23,11 @@ jobs :
       - name : checkout
         uses : actions/checkout@v2
 
-      - name: Checkout workflows-security-scans
-        uses: actions/checkout@v2
-        with:
-          repository: u21/workflows-security-scans
-          path: workflows-security-scans
-
-      - name : check file
-        run: ls
-      
-      - name : check 2
-        run : cd workflows-security-scans && ls
-      
-      - name : zip repo
-        run : zip -r code.zip .
-
       - name : run veracode
-        run : java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
-
-      - name : export findings
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: Veracode_Results
-          path: results.json
+        run : |
+              FILE=veracode_baseline.json
+              if [ -f "$FILE" ]; then
+                  echo "$FILE exists."
+              else 
+                  echo "$FILE does not exist."
+              fi
