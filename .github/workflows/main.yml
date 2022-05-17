@@ -25,11 +25,11 @@ jobs:
         uses: actions/checkout@v2
         
       - name: test
-        run: ls & pwd
+        run: ls ../
           
       # Run OWASP dependency check
       - name: Run OWASP dependency check
-        run: workflows-security-scans/dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression workflows-security-scans/dependency-check/suppression.xml
+        run: ../workflows-security-scans/dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression ../workflows-security-scans/dependency-check/suppression.xml
       
       # Upload OWASP dependency check result
       - name: Upload scan result if vulnerable
