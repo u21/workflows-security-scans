@@ -16,21 +16,22 @@ jobs:
     steps:
     
       - name: Checkout workflows-security-scans
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: u21/workflows-security-scans
           path: workflows-security-scans
           
       - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          path: repo
+        uses: actions/checkout@v3
         
       - name: ls2
         run: ls ../../
         
       - name: ls1
         run: ls ../
+        
+      - name: ls0
+        run: ls
           
       # Run OWASP dependency check
       - name: Run OWASP dependency check
