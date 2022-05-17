@@ -6,28 +6,36 @@ on:
       GITGUARDIAN:
         required: false
       VERACODE_API_ID:
-        required: false
+        required: true
       VERACODE_API_KEY:
-        required: false
+        required: true
         
-env :
-  GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN }}
-  VERACODE_API_ID: ${{ secrets.VERACODE_API_ID }}
-  VERACODE_API_KEY: ${{ secrets.VERACODE_API_KEY }}
-
-jobs :
-  veracode :
-    runs-on : ubuntu-latest
-    steps :
-
-      - name : checkout
-        uses : actions/checkout@v2
-
-      - name : run veracode
-        run : |
-              FILE=veracode_baseline.json
-              if [ -f "$FILE" ]; then
-                  echo "$FILE exists."
-              else 
-                  echo "$FILE does not exist."
-              fi
+jobs:
+  owasp-dependency-scan:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Checkout workflows-security-scans
+        uses: actions/checkout@v2
+        with:
+          repository: u21/workflows-security-scans
+          path: workflows-security-scans
+          
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: test
+        run: ls & pwd
+          
+      # Run OWASP dependency check
+      - name: Run OWASP dependency check
+        run: workflows-security-scans/dependency-check/bin/dependency-check.sh --scan . --project OWASP-Dep --failOnCVSS 0 --enableExperimental -o report.html --suppression workflows-security-scans/dependency-check/suppression.xml
+      
+      # Upload OWASP dependency check result
+      - name: Upload scan result if vulnerable
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: OWASP-Dependency-Check-Report
+          path: report.html
+          
