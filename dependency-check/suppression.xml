@@ -168,4 +168,32 @@
    <sha1>1eac4ba37f3c69c3cc1fb44472309e06164a4d2b</sha1>
    <cpe>cpe:/a:golang:protobuf</cpe>
 </suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: redis:4.3.3
+   ]]></notes>
+   <packageUrl regex="true">^pkg:pypi/redis@.*$</packageUrl>
+   <cve>CVE-2021-32626</cve>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: redis:4.3.3
+   ]]></notes>
+   <packageUrl regex="true">^pkg:pypi/redis@.*$</packageUrl>
+   <cve>CVE-2021-32672</cve>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: redis:4.3.3
+   ]]></notes>
+   <packageUrl regex="true">^pkg:pypi/redis@.*$</packageUrl>
+   <cve>CVE-2022-24735</cve>
+</suppress>
+<suppress>
+   <notes><![CDATA[
+   file name: redis:4.3.3
+   ]]></notes>
+   <packageUrl regex="true">^pkg:pypi/redis@.*$</packageUrl>
+   <cve>CVE-2022-24736</cve>
+</suppress>
 </suppressions>
