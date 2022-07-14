@@ -58,9 +58,14 @@ jobs:
               fi
               
       - name : check exit code
-        if: ${{ steps.run.outputs.status != 'success' }}
+        if: ${{ steps.run.outcome != 'success' }}
         run:
           cat res.txt
+          
+      - name : export findings
+        if: ${{ failure() }}
+        run:
+          echo steps.run.outcome
 
       - name : export findings
         if: ${{ failure() }}
