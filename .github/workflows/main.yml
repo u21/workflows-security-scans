@@ -47,16 +47,18 @@ jobs:
           path: workflows-security-scans
 
       - name : run veracode
+        id : run
         run : |
               FILE=veracode_baseline.json
               if [ -f "$FILE" ]; then
                   java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json > res.txt
               else 
                   java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
+              echo ::set-output name=status::failure
               fi
               
       - name : check exit code
-        if: ${{ failure() }}
+        if: ${{ steps.run.failure() }}
         run:
           cat res.txt
 
