@@ -58,7 +58,7 @@ jobs:
               fi
               
       - name : check exit code
-        if: ${{ steps.run.failure() }}
+        if: ${{ steps.run.outputs.status != 'success' }}
         run:
           cat res.txt
 
