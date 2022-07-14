@@ -134,10 +134,18 @@ jobs:
         run : |
               FILE=veracode_baseline.json
               if [ -f "$FILE" ]; then
-                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json
+                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json > res.txt
               else 
-                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
+                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
               fi
+              echo $? >> $scan_exit_code
+      
+      - name : print res.txt
+        run : cat res.txt
+        
+      
+      - name : print exit_code
+        run : echo $scan_exit_code
 
       - name : export findings
         if: ${{ failure() }}
