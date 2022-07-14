@@ -54,14 +54,11 @@ jobs:
               else 
                   java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
               fi
-              echo $? >> $env.scan_exit_code
-              echo $scan_exit_code
-              echo $env.scan_exit_code
-              cat res.txt
-  
-      - name : print exit_code
-        if: ${{ $? != 0 }}
-        run : echo "test this"
+              
+      - name : check exit code
+        if: ${{ failure() }}
+        run:
+          cat res.txt
 
       - name : export findings
         if: ${{ failure() }}
