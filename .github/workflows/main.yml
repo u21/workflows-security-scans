@@ -60,7 +60,7 @@ jobs:
               cat res.txt
   
       - name : print exit_code
-        if: ${{ env.$? != 0 }}
+        if: ${{ $? != 0 }}
         run : echo "test this"
 
       - name : export findings
