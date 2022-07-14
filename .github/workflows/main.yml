@@ -65,7 +65,7 @@ jobs:
       - name : export findings
         if: ${{ failure() }}
         run:
-          echo steps.run.outcome
+          echo ${{ steps.run.outcome }}
 
       - name : export findings
         if: ${{ failure() }}
