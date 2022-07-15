@@ -64,16 +64,17 @@ jobs:
             cat res.txt
             
             if grep -R "No issues found." res.txt ; $? = 0; then
-                exit $?
+                export veracode_exit=$?
             elif grep -R "there are no results to analyze." res.txt ; $? = 0; then
-                exit $?
+                export veracode_exit=$?
             else
-                exit $?
+                export veracode_exit=$?
             fi
  
       - name : export findings
         if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: Veracode_Results
-          path: results.json
+        run: echo $veracode_exit
+        #uses: actions/upload-artifact@v2
+        #with:
+        #  name: Veracode_Results
+        #  path: results.json
