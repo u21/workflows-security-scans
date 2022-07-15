@@ -61,9 +61,7 @@ jobs:
           
       - name : read res.txt
         run : |
-            if grep -R "No issues found." res.txt ; echo $? = 0; then
-                exit 0
-            elif grep -R "there are no results to analyze." res.txt ; echo $? = 0; then
+            if [ grep -R "No issues found." res.txt ; echo $? = 0] || [ grep -R "there are no results to analyze." res.txt ; echo $? = 0]; then
                 exit 0
             else
                 exit 1
