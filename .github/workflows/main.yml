@@ -57,12 +57,8 @@ jobs:
               else 
                 java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
               fi
-              
-      - name : check exit code
-        if : steps.run.outcome != 'success'
-        run: echo $?
           
       - name : test2
         if: ${{ failure() }}
         run:
-          echo $?
+          grep -R "there are no results to analyze." res.txt ; echo $? || true
