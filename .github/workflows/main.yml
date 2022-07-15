@@ -75,8 +75,14 @@ jobs:
  
       - name : export findings
         if: steps.read.outputs.status == 'failure'
-        run: echo $veracode_exit
-        #uses: actions/upload-artifact@v2
-        #with:
-        #  name: Veracode_Results
-        #  path: results.json
+        uses: actions/upload-artifact@v2
+        with:
+          name: Veracode_Results
+          path: results.json
+
+      - name : export findings
+        if: steps.read.outputs.status == 'failure'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Veracode finding count is not 0')
