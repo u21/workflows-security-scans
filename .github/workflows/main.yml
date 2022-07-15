@@ -64,11 +64,11 @@ jobs:
             cat res.txt
             
             if grep -R "No issues found." res.txt ; echo $? = 0; then
-                exit 0
+                echo "1st" ; exit 0
             elif grep -R "there are no results to analyze." res.txt ; echo $? = 0; then
-                exit 0
+                echo "2nd"; exit 0
             else
-                exit 1
+                echo "3rd"; exit 1
             fi
  
       - name : export findings
