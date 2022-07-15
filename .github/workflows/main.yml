@@ -53,14 +53,11 @@ jobs:
         run : |
               FILE=veracode_baseline.json
               if [ -f "$FILE" ]; then
-                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json > res.txt
+                  echo "::set-env name=veracode_exit::${{ java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json > res.txt }}"
               else 
-                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
-              echo ::set-env name=veracode_exit::failure
-              exit 0
+                  echo "::set-env name=veracode_exit::${{ java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt }}"
               fi
               
       - name : check exit code
-        if: ${{ steps.run.outcome != 'success' }}
         run:
-          cat res.txt
+          echo $veracode_exit
