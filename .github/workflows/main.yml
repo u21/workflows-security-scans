@@ -64,9 +64,9 @@ jobs:
         run : |
             cat res.txt
             
-            if [ grep -R "No issues found." res.txt ]; then
+            if grep -R "No issues found." res.txt; then
                 echo ::set-output name=status::success
-            elif [ grep -R "there are no results to analyze." res.txt ]; then
+            elif grep -R "there are no results to analyze." res.txt; then
                 echo ::set-output name=status::success
             else
                 echo ::set-output name=status::failure
