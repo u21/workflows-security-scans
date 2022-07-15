@@ -57,14 +57,13 @@ jobs:
                   java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json > res.txt
               else 
                 java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
-              echo $?
               fi
           
       - name : read res.txt
         run : |
             if grep -R "No issues found." res.txt ; echo $? = 0; then
                 exit 0
-            if grep -R "there are no results to analyze." res.txt ; echo $? = 0; then
+            elif grep -R "there are no results to analyze." res.txt ; echo $? = 0; then
                 exit 0
             else
                 exit 1
