@@ -60,15 +60,16 @@ jobs:
               fi
           
       - name : read res.txt
+        id : read
         run : |
             cat res.txt
             
             if grep -R "No issues found." res.txt ; $? = 0; then
-                export veracode_exit=$?
+                true
             elif grep -R "there are no results to analyze." res.txt ; $? = 0; then
-                export veracode_exit=$?
+                true
             else
-                export veracode_exit=$?
+                ::error testtest
             fi
  
       - name : export findings
