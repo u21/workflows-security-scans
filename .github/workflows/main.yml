@@ -50,6 +50,7 @@ jobs:
 
       - name : run veracode
         id : run
+        continue-on-error : true
         run : |
               FILE=veracode_baseline.json
               if [ -f "$FILE" ]; then
