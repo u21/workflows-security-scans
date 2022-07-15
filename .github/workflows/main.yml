@@ -131,17 +131,39 @@ jobs:
           path: workflows-security-scans
 
       - name : run veracode
+        continue-on-error : true
         run : |
               FILE=veracode_baseline.json
               if [ -f "$FILE" ]; then
-                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json
+                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip -bf veracode_baseline.json > res.txt
               else 
-                  java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip
+                java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
               fi
 
+      - name : read res.txt
+        id : read
+        run : |
+            cat res.txt
+            
+            if grep -R "No issues found." res.txt; then
+                echo ::set-output name=status::success
+            elif grep -R "there are no results to analyze." res.txt; then
+                echo ::set-output name=status::success
+            else
+                echo ::set-output name=status::failure
+            fi
+        shell: bash
+        
       - name : export findings
-        if: ${{ failure() }}
+        if: steps.read.outputs.status == 'failure'
         uses: actions/upload-artifact@v2
         with:
           name: Veracode_Results
           path: results.json
+          
+      - name : fail github workflow
+        if: steps.read.outputs.status == 'failure'
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Veracode finding count is not 0')
