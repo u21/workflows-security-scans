@@ -61,4 +61,4 @@ jobs:
       - name : test2
         if: ${{ failure() }}
         run:
-          grep -R "there are no results to analyze." res.txt ; echo $? || true
+          grep -R "there are no results to analyze." res.txt ; echo $? || true || exit 0
