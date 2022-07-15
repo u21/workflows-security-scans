@@ -59,9 +59,8 @@ jobs:
               fi
               
       - name : check exit code
-        if: steps.run.outcome = "failure"
-        run:
-          echo $veracode_exit
+        if : steps.run.outcome != 'success'
+        run: echo $?
           
       - name : test2
         if: ${{ failure() }}
