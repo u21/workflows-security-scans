@@ -9,7 +9,7 @@ on:
         required: true
       VERACODE_API_KEY:
         required: true
-        
+
 jobs:
 
 
@@ -28,6 +28,8 @@ jobs:
 
 
   veracode :
+    env:
+      veracode_exit: 0
     runs-on : ubuntu-latest
     steps :
 
@@ -55,6 +57,7 @@ jobs:
               else 
                   java -jar workflows-security-scans/pipeline-scan.jar -vid ${{ secrets.VERACODE_API_ID }} -vkey ${{ secrets.VERACODE_API_KEY }} -jd true -jo true --file code.zip > res.txt
               echo ::set-output name=status::failure
+              exit 0
               fi
               
       - name : check exit code
@@ -63,13 +66,11 @@ jobs:
           cat res.txt
           
       - name : export findings
+        id : exit_check
         if: ${{ failure() }}
+        run: echo "::set-env name=veracode_exit::${{ grep -R 'there are no results to analyze.' res.txt ; echo $? || true }}"
+       
+      - name : more check
+        if: ${{ steps.exit_check.outcome != 'success' }}
         run:
-          echo ${{ steps.run.outcome }}
-
-      - name : export findings
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: Veracode_Results
-          path: results.json
+          cat res.txt
