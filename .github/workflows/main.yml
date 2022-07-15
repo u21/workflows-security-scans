@@ -149,6 +149,8 @@ jobs:
                 echo ::set-output name=status::success
             elif grep -R "there are no results to analyze." res.txt; then
                 echo ::set-output name=status::success
+            elif grep -R "New flaws found: 0 as compared to baseline" res.txt; then
+                echo ::set-output name=status::success
             else
                 echo ::set-output name=status::failure
             fi
